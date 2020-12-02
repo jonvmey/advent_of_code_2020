@@ -1,4 +1,5 @@
 use aoc_runner_derive::{aoc, aoc_generator};
+use itertools::Itertools;
 
 #[aoc_generator(day1)]
 fn parse_input(input: &str) -> Vec<usize> {
@@ -28,4 +29,13 @@ fn part1(vals: &[usize]) -> usize {
     }
 
     0
+}
+
+#[aoc(day1, part2)]
+fn part2(vals: &[usize]) -> usize {
+    vals.iter()
+        .combinations(3)
+        .find(|v| (v[0] + v[1] + v[2]) == 2020)
+        .map(|v| v[0] * v[1] * v[2])
+        .unwrap()
 }
