@@ -1,21 +1,21 @@
-use aoc_runner_derive::{aoc, aoc_generator};
+use aoc_runner_derive::aoc;
 
 use regex::Regex;
 
-struct Rule {
+struct Rule<'a> {
     first: usize,
     second: usize,
     character: char,
-    password: String,
+    password: &'a str,
 }
 
-impl Rule {
-    fn new(first: usize, second: usize, character: char, password: &str) -> Self {
+impl<'a> Rule<'a> {
+    fn new(first: usize, second: usize, character: char, password: &'a str) -> Self {
         Self {
             first,
             second,
             character,
-            password: password.to_string(),
+            password,
         }
     }
 
@@ -29,23 +29,25 @@ impl Rule {
     }
 }
 
-#[aoc_generator(day2)]
 fn parse_input(input: &str) -> Vec<Rule> {
     let re = Regex::new(r"(\d+)-(\d+) ([a-z]): ([a-z]+)").unwrap();
 
     re.captures_iter(input)
-        .map(|v| {
+        .map(|cap| {
             Rule::new(
-                v[1].parse().unwrap(),
-                v[2].parse().unwrap(),
-                v[3].chars().next().unwrap(),
-                &v[4],
+                cap[1].parse().unwrap(),
+                cap[2].parse().unwrap(),
+                cap[3].chars().next().unwrap(),
+                cap.get(4).unwrap().as_str(),
             )
         })
         .collect()
 }
 
 #[aoc(day2, part1)]
-fn part1(vals: &[Rule]) -> usize {
-    vals.iter().filter(|v| v.validate_part1()).count()
+fn part1(input: &str) -> usize {
+    parse_input(input)
+        .iter()
+        .filter(|v| v.validate_part1())
+        .count()
 }
