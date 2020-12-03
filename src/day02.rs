@@ -27,6 +27,15 @@ impl<'a> Rule<'a> {
             .count();
         self.first <= count && count <= self.second
     }
+
+    fn validate_part2(&self) -> bool {
+        (self.nth_char(self.first) == self.character)
+            ^ (self.nth_char(self.second) == self.character)
+    }
+
+    fn nth_char(&self, n: usize) -> char {
+        self.password.chars().nth(n - 1).unwrap()
+    }
 }
 
 fn parse_input(input: &str) -> Vec<Rule> {
@@ -49,5 +58,13 @@ fn part1(input: &str) -> usize {
     parse_input(input)
         .iter()
         .filter(|v| v.validate_part1())
+        .count()
+}
+
+#[aoc(day2, part2)]
+fn part2(input: &str) -> usize {
+    parse_input(input)
+        .iter()
+        .filter(|v| v.validate_part2())
         .count()
 }
