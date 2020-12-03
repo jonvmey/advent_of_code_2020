@@ -1,5 +1,6 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 use itertools::Itertools;
+use std::cmp::Ordering;
 
 #[aoc_generator(day1)]
 fn parse_input(input: &str) -> Vec<usize> {
@@ -9,7 +10,7 @@ fn parse_input(input: &str) -> Vec<usize> {
 #[aoc(day1, part1)]
 fn part1(vals: &[usize]) -> usize {
     let mut v = vals.to_vec();
-    v.sort();
+    v.sort_unstable();
 
     let mut front_iter = v.iter();
     let mut back_iter = v.iter().rev();
@@ -19,12 +20,10 @@ fn part1(vals: &[usize]) -> usize {
     while front < back {
         let sum = front + back;
 
-        if sum == 2020 {
-            return front * back;
-        } else if sum < 2020 {
-            front = front_iter.next().unwrap();
-        } else {
-            back = back_iter.next().unwrap();
+        match sum.cmp(&2020) {
+            Ordering::Equal => return front * back,
+            Ordering::Less => front = front_iter.next().unwrap(),
+            Ordering::Greater => back = back_iter.next().unwrap(),
         }
     }
 
