@@ -6,7 +6,7 @@ fn parse_input(input: &str) -> Vec<String> {
 }
 
 fn calculate(vals: &[String], right: usize, down: usize) -> usize {
-    vals.into_iter()
+    vals.iter()
         .step_by(down)
         .enumerate()
         .filter(|(index, line)| line.chars().nth((index * right) % line.len()).unwrap() == '#')
@@ -28,5 +28,5 @@ fn part2(vals: &[String]) -> usize {
         calculate(vals, 1, 2),
     ];
 
-    counts.iter().fold(1, |product, count| product * count)
+    counts.iter().product()
 }
