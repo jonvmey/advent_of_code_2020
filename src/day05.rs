@@ -5,7 +5,7 @@ fn parse_input(input: &str) -> Vec<String> {
     input.lines().map(|s| s.trim().to_string()).collect()
 }
 
-fn calculate_seat_index(s : &str) -> usize {
+fn calculate_seat_index(s: &str) -> usize {
     let mut seat_index = 0;
     let mut weight = 64 * 8;
 
