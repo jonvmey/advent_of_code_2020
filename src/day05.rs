@@ -12,10 +12,10 @@ fn calculate_seat_index(s: &str) -> usize {
     for c in s.chars() {
         if (c == 'B') || (c == 'R') {
             // Upper half of range
-            seat_index = seat_index + weight;
+            seat_index += weight;
         }
 
-        weight = weight / 2;
+        weight /= 2;
     }
 
     seat_index
