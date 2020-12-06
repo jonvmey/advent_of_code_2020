@@ -113,7 +113,7 @@ impl<'a> IdInfo<'a> {
         // If cm, the number must be at least 150 and at most 193.
         // If in, the number must be at least 59 and at most 76.
         lazy_static! {
-            static ref RE: Regex = Regex::new(r"(^\d{2-3})(in|cm)$").unwrap();
+            static ref RE: Regex = Regex::new(r"^(\d{2,3})(in|cm)$").unwrap();
         }
 
         if let Some(s) = self.height {
