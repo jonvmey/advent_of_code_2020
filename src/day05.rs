@@ -31,10 +31,6 @@ fn part2(vals: &[String]) -> usize {
     let mut indexes: Vec<usize> = vals.iter().map(|s| calculate_seat_index(s)).collect();
     indexes.sort_unstable();
 
-    for (i1, i2) in indexes.iter().zip(indexes[1..].iter()) {
-        println!("{} - {} = {}", i2, i1, i2 - i1);
-    }
-
     indexes
         .iter()
         .zip(indexes[1..].iter())
